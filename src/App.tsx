@@ -45,15 +45,20 @@ export default class App extends React.Component{
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-        <div className="FormContainer">
-          <div className="Form">
-            <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
-            <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
-            <Button text={"Submit"}/>
-          
+          <div className="FormContainer">
+            <div className="TextContainer">
+              <h1>S
+                <span style={{color: '#fe6b8a', border: "2px solid white", fontSize: 36}}>
+                  al</span>ary <span style={{color: '#fe8167'}}>Sight</span>
+              </h1>
+              <h3>Discover your salary around the world</h3>
+            </div>
+            <div className="Form">
+              <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+              <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+              <Button text={"Submit"}/>
+            </div>
           </div>
-          
-        </div>
         </div>
       </ThemeProvider>
     );

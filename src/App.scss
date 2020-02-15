@@ -8,6 +8,7 @@
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
+  text-align: center;
 }
 
 .Form {
@@ -16,7 +17,7 @@
   box-shadow: rgba(0, 0, 0, 0.38) 0px 4px 8px 0px;
   padding: 20px;
   margin: auto;
-  margin-top: 15%;
+  margin-top: 13%;
   border-radius: 5px;
   color: white;
   text-align: center;
@@ -26,4 +27,9 @@
   .Mui-focused {
       color: white;
   }
+}
+
+.TextContainer{
+  margin-top: auto;
+  color: white;
 }
