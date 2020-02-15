@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import Autocomplete from './components/Autocomplete/Autocomplete';
 import Button from './components/Button/Button';
-
+import Particles from 'react-particles-js';
 import {
   createMuiTheme,
   ThemeProvider
@@ -54,6 +54,7 @@ export default class App extends React.Component<any, AppState>{
         return(
           <ThemeProvider theme={theme}>
           <div className="App">
+          <Particles />
             <div className="FormContainer">
               <div className="TextContaine">
                 <h1>S
@@ -67,6 +68,7 @@ export default class App extends React.Component<any, AppState>{
                 <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
                 <Button text={"Submit"}/>
               </div>
+              <p className="Footer">Built by Richard Hong, Owen Chiu and Ian Gu @HTV4</p>
             </div>
           </div>
         </ThemeProvider>
