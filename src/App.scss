@@ -17,6 +17,12 @@
   font-size: 12px;
 }
 
+.FadeOut{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s ease-in-out;
+}
+
 .Form {
   width: 600px;
   
