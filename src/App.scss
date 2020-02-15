@@ -2,6 +2,7 @@
   width: 100%;
   background: #12181c;
   height: 100vh;
+  color: white;
 }
 
 .FormContainer {
@@ -13,12 +14,9 @@
 
 .Form {
   width: 600px;
-  background: #2b2e36;
-  box-shadow: rgba(0, 0, 0, 0.38) 0px 4px 8px 0px;
-  padding: 20px;
+  
   margin: auto;
   margin-top: 13%;
-  border-radius: 5px;
   color: white;
   text-align: center;
 }
@@ -32,4 +30,11 @@
 .TextContainer{
   margin-top: auto;
   color: white;
+}
+
+.Box {
+  background: #2b2e36;
+  box-shadow: rgba(0, 0, 0, 0.38) 0px 4px 8px 0px;
+  border-radius: 5px;
+  padding: 20px;
 }
