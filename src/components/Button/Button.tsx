@@ -17,5 +17,5 @@ const useStyles = makeStyles({
 
 export default function StyledButton(props:any) {
   const classes = useStyles();
-  return <Button className={classes.root}>{props.text}</Button>;
+  return <Button onClick={props.onClick} className={classes.root}>{props.text}</Button>;
 }

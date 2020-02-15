@@ -7,7 +7,7 @@ import {
   createMuiTheme,
   ThemeProvider
 } from "@material-ui/core";
-
+import FadeIn from 'react-fade-in';
 const options = ["React", "ReactNative", "R", "Rs", "Ra", "Rf", "asdklfjnkjladsfhk jhadkjsfhkjasdf", "asdfasdfasdfasdfasdfasdfasd"]
 
 const theme = createMuiTheme({
@@ -47,13 +47,23 @@ export default class App extends React.Component<any, AppState>{
     }
   }
 
+  checkForm = () =>{
+    if(this.state.skills){
+      this.setState({
+        step: this.state.step + 1,
+      })
+    }
+  }
+
   render(){
+    console.log(this.state.skills);
     const { step } = this.state;
     switch(step){
       case 0:
         return(
           <ThemeProvider theme={theme}>
           <div className="App">
+          
           <Particles />
             <div className="FormContainer">
               <div className="TextContaine">
@@ -63,11 +73,15 @@ export default class App extends React.Component<any, AppState>{
                 </h1>
                 <h3>Discover your salary around the world</h3>
               </div>
+              <FadeIn transitionDuration={600}>
               <div className="Form Box">
+              <FadeIn transitionDuration={600} delay={150}>
                 <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
                 <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
                 <Button text={"Submit"}/>
+              </FadeIn>   
               </div>
+              </FadeIn>
               <p className="Footer">Built by Richard Hong, Owen Chiu and Ian Gu @HTV4</p>
             </div>
           </div>

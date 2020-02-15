@@ -12,9 +12,11 @@
     "@types/node": "^12.12.27",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
+    "@types/react-fade-in": "^0.1.0",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-fade-in": "^0.1.8",
     "react-particles-js": "^2.7.1",
     "react-scripts": "3.4.0",
     "typescript": "^3.7.5"
