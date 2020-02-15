@@ -5,6 +5,7 @@ import Button from './components/Button/Button';
 import Map from './components/Map/Map';
 import Particles from 'react-particles-js';
 import { RotateSpinner } from "react-spinners-kit";
+
 import {
   createMuiTheme,
   ThemeProvider
@@ -36,6 +37,14 @@ const theme = createMuiTheme({
   }
 });
 
+const initialState:AppState= {
+  skills: [],
+  step: 0,
+  fadeOut: false,
+  loadingText: loadingText,
+  loadingTextIndex: 0
+}
+
 type AppState = {
   skills: string[],
   step: number,
@@ -47,13 +56,11 @@ type AppState = {
 export default class App extends React.Component<any, AppState>{
   constructor(props:any){
     super(props);
-    this.state={
-      skills: [],
-      step: 0,
-      fadeOut: false,
-      loadingText: loadingText,
-      loadingTextIndex: 0
-    }
+    this.state = initialState;
+  }
+
+  resetState = () =>{
+    this.setState(initialState);
   }
 
   startAlternate = () => {
@@ -93,6 +100,7 @@ export default class App extends React.Component<any, AppState>{
               <FadeIn transitionDuration={600} delay={150}>
                 <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
                 <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+                <br />
                 <Button text={"Submit"} onClick={this.checkForm}/>
               </FadeIn>   
               </div>
@@ -120,7 +128,10 @@ export default class App extends React.Component<any, AppState>{
           </ThemeProvider>
         );
       default:
-        return (<Map />);
+        return (
+          <ThemeProvider theme={theme}>
+            <Map reset={this.resetState}/>
+          </ThemeProvider>);
     }
   }
 }
