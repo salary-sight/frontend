@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Autocomplete from './components/Autocomplete/Autocomplete';
+import AutocompleteSingle from './components/Autocomplete/AutocompleteSingle';
 import Button from './components/Button/Button';
 import Map from './components/Map/Map';
 import Particles from 'react-particles-js';
@@ -12,7 +13,7 @@ import {
 } from "@material-ui/core";
 import FadeIn from 'react-fade-in';
 
-import { options, loadingText } from './vars';
+import { loadingText, skills, educationLevel, pastPositions, yearsCode } from './vars';
 
 const theme = createMuiTheme({
   palette: {
@@ -42,7 +43,9 @@ const initialState:AppState= {
   step: 0,
   fadeOut: false,
   loadingText: loadingText,
-  loadingTextIndex: 0
+  loadingTextIndex: 0,
+  educationLevel: "",
+  yearsInCode: -1,
 }
 
 type AppState = {
@@ -51,6 +54,8 @@ type AppState = {
   fadeOut: boolean,
   loadingText: string[],
   loadingTextIndex: number,
+  educationLevel: string,
+  yearsInCode: number
 }
 
 export default class App extends React.Component<any, AppState>{
@@ -98,8 +103,11 @@ export default class App extends React.Component<any, AppState>{
               <FadeIn transitionDuration={600}>
               <div className={"Form Box"}>
               <FadeIn transitionDuration={600} delay={150}>
-                <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
-                <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+                <Autocomplete options={skills} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder={skills[3]}/>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <AutocompleteSingle width="60%" options={educationLevel} id="educationLevel" setValue={(arr: any) => this.setState({ educationLevel: arr })} label="education" placeholder={educationLevel[3]}/>
+                <AutocompleteSingle width="30%" options={yearsCode} id="yearsInCode" setValue={(el: any) => this.setState({ yearsInCode: parseInt(el) })} label="years in code" placeholder={'3'}/>
+                </div>
                 <br />
                 <Button text={"Submit"} onClick={this.checkForm}/>
               </FadeIn>   
