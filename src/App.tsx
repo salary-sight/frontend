@@ -2,6 +2,7 @@ import React from 'react';
 import './App.scss';
 import Autocomplete from './components/Autocomplete/Autocomplete';
 import Button from './components/Button/Button';
+import Map from './components/Map/Map';
 import Particles from 'react-particles-js';
 import { RotateSpinner } from "react-spinners-kit";
 import {
@@ -43,8 +44,6 @@ type AppState = {
   loadingTextIndex: number,
 }
 
-
-
 export default class App extends React.Component<any, AppState>{
   constructor(props:any){
     super(props);
@@ -68,7 +67,7 @@ export default class App extends React.Component<any, AppState>{
       fadeOut: true
     })
     setTimeout(() => this.setState({
-      step: this.state.step + 1
+      step: this.state.step + 10
     }), 800)
   }
 
@@ -120,6 +119,8 @@ export default class App extends React.Component<any, AppState>{
             </div>
           </ThemeProvider>
         );
+      default:
+        return (<Map />);
     }
   }
 }
