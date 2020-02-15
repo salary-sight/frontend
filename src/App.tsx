@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Autocomplete from './components/Autocomplete/Autocomplete';
+import Button from './components/Button/Button';
 
 import {
   createMuiTheme,
@@ -43,7 +44,17 @@ export default class App extends React.Component{
   render(){
     return (
       <ThemeProvider theme={theme}>
-        <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+        <div className="App">
+        <div className="FormContainer">
+          <div className="Form">
+            <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+            <Autocomplete options={options} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder="javascript"/>
+            <Button text={"Submit"}/>
+          
+          </div>
+          
+        </div>
+        </div>
       </ThemeProvider>
     );
   }
