@@ -20,6 +20,10 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 am4core.useTheme(am4themes_dark);
 
+const fillColor = "#0a74da"
+const minColor = "#283046"
+const maxColor = "#0a74da"
+
 const marks = [
   {
     value: 1,
@@ -109,7 +113,7 @@ export default withStyles(styles, { withTheme: true })(
       polygonTemplate.tooltipText = "{name}: {value} USD";
       map.numberFormatter.numberFormat = "###,###,###.##";
       var hs = polygonTemplate.states.create("hover");
-      hs.properties.fill = am4core.color("#367B25");
+      hs.properties.fill = am4core.color(fillColor);
       let grid = map.series.push(new am4maps.GraticuleSeries());
       grid.toBack();
 
@@ -127,8 +131,8 @@ export default withStyles(styles, { withTheme: true })(
       polygonSeries.heatRules.push({
         property: "fill",
         target: polygonSeries.mapPolygons.template,
-        min: am4core.color("#283046"),
-        max: am4core.color("#0a74da")
+        min: am4core.color(minColor),
+        max: am4core.color(maxColor)
       });
       polygonSeries.useGeodata = true;
       polygonSeries.data = this.props.data;
@@ -158,7 +162,7 @@ export default withStyles(styles, { withTheme: true })(
             polygonTemplate.tooltipText = this.state.usd ? "{name}: {value} USD" : "{name}: {value} CAD";
             map.numberFormatter.numberFormat = "###,###,###.##";
             var hs = polygonTemplate.states.create("hover");
-            hs.properties.fill = am4core.color("#367B25");
+            hs.properties.fill = am4core.color(minColor);
             let grid = map.series.push(new am4maps.GraticuleSeries());
             grid.toBack();
 
@@ -174,8 +178,8 @@ export default withStyles(styles, { withTheme: true })(
             polygonSeries.heatRules.push({
                 property: "fill",
                 target: polygonSeries.mapPolygons.template,
-                min: am4core.color("#283046"),
-                max: am4core.color("#0a74da")
+                min: am4core.color(minColor),
+                max: am4core.color(maxColor)
             });
             polygonSeries.useGeodata = true;
             polygonSeries.data = this.state.usd ? this.state.usdData.data : this.state.cadData.data;
