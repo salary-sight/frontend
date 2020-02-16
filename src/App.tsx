@@ -15,6 +15,28 @@ import FadeIn from 'react-fade-in';
 
 import { loadingText, skills, educationLevel, pastPositions, yearsCode } from './vars';
 
+const data = [{
+  "id": "US",
+  "name": "United States",
+  "value": 100
+}, {
+  "id": "FR",
+  "name": "France",
+  "value": 50
+}, {
+  "id": "CA",
+  "name": "Canada",
+  "value": 70
+}, {
+  "id": "CN",
+  "name": "China",
+  "value": 80
+}, {
+  "id": "MX",
+  "name": "Mexico",
+  "value": 90
+}];
+
 const theme = createMuiTheme({
   palette: {
     type: "dark",
@@ -40,6 +62,7 @@ const theme = createMuiTheme({
 
 const initialState:AppState= {
   skills: [],
+  experiences: [],
   step: 0,
   fadeOut: false,
   loadingText: loadingText,
@@ -50,6 +73,7 @@ const initialState:AppState= {
 
 type AppState = {
   skills: string[],
+  experiences: string[],
   step: number,
   fadeOut: boolean,
   loadingText: string[],
@@ -104,10 +128,11 @@ export default class App extends React.Component<any, AppState>{
               <div className={"Form Box"}>
               <FadeIn transitionDuration={600} delay={150}>
                 <Autocomplete options={skills} id="skills" setValue={(arr: string[]) => this.setState({ skills: arr })} label="skills" placeholder={skills[3]}/>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <AutocompleteSingle width="60%" options={educationLevel} id="educationLevel" setValue={(arr: any) => this.setState({ educationLevel: arr })} label="education" placeholder={educationLevel[3]}/>
-                <AutocompleteSingle width="30%" options={yearsCode} id="yearsInCode" setValue={(el: any) => this.setState({ yearsInCode: parseInt(el) })} label="years in code" placeholder={'3'}/>
-                </div>
+                <Autocomplete options={pastPositions} id="pastPositions" setValue={(arr: string[]) => this.setState({ experiences: arr })} label="experiences" placeholder={pastPositions[6]}/>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <AutocompleteSingle width="60%" options={educationLevel} id="educationLevel" setValue={(arr: any) => this.setState({ educationLevel: arr })} label="education" placeholder={educationLevel[3]}/>
+                  <AutocompleteSingle width="30%" options={yearsCode} id="yearsInCode" setValue={(el: any) => this.setState({ yearsInCode: parseInt(el) })} label="years in code" placeholder={'3'}/>
+                  </div>
                 <br />
                 <Button text={"Submit"} onClick={this.checkForm}/>
               </FadeIn>   
@@ -138,7 +163,9 @@ export default class App extends React.Component<any, AppState>{
       default:
         return (
           <ThemeProvider theme={theme}>
-            <Map reset={this.resetState}/>
+            
+            <Map reset={this.resetState} data={data}/>
+            
           </ThemeProvider>);
     }
   }

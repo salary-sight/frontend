@@ -10,8 +10,9 @@ import am4geodata_worldHigh from '@amcharts/amcharts4-geodata/worldHigh';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import am4themes_dark from "@amcharts/amcharts4/themes/dark";
 import { withStyles } from "@material-ui/core/styles";
-import * as am4core from "@amcharts/amcharts4/core"
-import * as am4maps from "@amcharts/amcharts4/maps"
+import * as am4core from "@amcharts/amcharts4/core";
+import * as am4maps from "@amcharts/amcharts4/maps";
+import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import Button from './../Button/Button';
 
@@ -30,13 +31,16 @@ const styles = (theme: Theme) =>
     },
 });
 
-type MapState = {
-    classes: any
+type MapProps = {
+    data: any[]
 }
 
 export default withStyles(styles, { withTheme: true }) (class Map extends React.Component<any, any>{
     constructor(props:any){
         super(props);
+        this.state = {
+            data: props.data
+        }
     }
 
     componentDidMount(){
@@ -52,7 +56,27 @@ export default withStyles(styles, { withTheme: true }) (class Map extends React.
         hs.properties.fill = am4core.color("#367B25");
         let grid = map.series.push(new am4maps.GraticuleSeries());
         grid.toBack();
+        
+        let heatLegend = map.createChild(am4maps.HeatLegend);
+        heatLegend.series = polygonSeries;
+        heatLegend.align = "right";
+        heatLegend.width = am4core.percent(25);
+        heatLegend.marginRight = am4core.percent(4);
 
+        let min = Number.MAX_SAFE_INTEGER, max = Number.MIN_SAFE_INTEGER, val;
+        for(let i in this.state.data){
+            val = this.state.data[i].value;
+            if(val > max){
+                max = val;
+            } if (val < min){
+                min = val;
+            }
+        }
+
+        heatLegend.minValue = min;
+        heatLegend.maxValue = max;
+        heatLegend.valign = "bottom";
+        
         polygonSeries.exclude = ["AQ"];
         polygonSeries.heatRules.push({
             "property": "fill",
@@ -61,27 +85,7 @@ export default withStyles(styles, { withTheme: true }) (class Map extends React.
             "max": am4core.color("#0a74da")
           });
         polygonSeries.useGeodata = true;
-        polygonSeries.data = [{
-            "id": "US",
-            "name": "United States",
-            "value": 100
-          }, {
-            "id": "FR",
-            "name": "France",
-            "value": 50
-          }, {
-            "id": "CA",
-            "name": "Canada",
-            "value": 70
-          }, {
-            "id": "CN",
-            "name": "China",
-            "value": 80
-          }, {
-            "id": "MX",
-            "name": "Mexico",
-            "value": 90
-          }];
+        polygonSeries.data = this.props.data;
         map.series.push(polygonSeries);
     }
     
