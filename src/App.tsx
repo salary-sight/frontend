@@ -102,7 +102,7 @@ export default class App extends React.Component<any, AppState>{
       this.setState({
         fadeOut: true
       })
-      axios.post("http://localhost:5000", {
+      axios.post("http://salarysight.herokuapp.com:5000", {
         YearsCode: this.state.yearsInCode,
         EdLevel: this.state.educationLevel,
         Skills: this.state.skills,

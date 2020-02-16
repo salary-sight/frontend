@@ -14,7 +14,6 @@ export const educationLevel = [
     "Primary/elementary school",
     "Associate degree",
     "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)",
-    "Prefer not to say",
     "Professional degree (JD, MD, etc.)",
     "I never completed any formal education"
 ];
