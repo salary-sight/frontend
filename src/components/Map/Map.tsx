@@ -20,9 +20,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 am4core.useTheme(am4themes_dark);
 
-const fillColor = "#0a74da"
-const minColor = "#283046"
-const maxColor = "#0a74da"
+const fillColor = "#79FF5E"
+const minColor = "#404C72"
+const maxColor = "#3FFF3F"
 
 const marks = [
   {
@@ -127,7 +127,7 @@ export default withStyles(styles, { withTheme: true })(
       heatLegend.maxValue = this.state.usdData.max;
       heatLegend.valign = "bottom";
 
-      polygonSeries.exclude = ["AQ"];
+      polygonSeries.exclude = ["AQ", "GL"];
       polygonSeries.heatRules.push({
         property: "fill",
         target: polygonSeries.mapPolygons.template,
@@ -162,7 +162,7 @@ export default withStyles(styles, { withTheme: true })(
             polygonTemplate.tooltipText = this.state.usd ? "{name}: {value} USD" : "{name}: {value} CAD";
             map.numberFormatter.numberFormat = "###,###,###.##";
             var hs = polygonTemplate.states.create("hover");
-            hs.properties.fill = am4core.color(minColor);
+            hs.properties.fill = am4core.color(fillColor);
             let grid = map.series.push(new am4maps.GraticuleSeries());
             grid.toBack();
 
@@ -174,7 +174,7 @@ export default withStyles(styles, { withTheme: true })(
             heatLegend.minValue = this.state.usd ? this.state.usdData.min : this.state.cadData.min;
             heatLegend.maxValue = this.state.usd ? this.state.usdData.max : this.state.cadData.max;
             heatLegend.valign = "bottom";
-            polygonSeries.exclude = ["AQ"];
+            polygonSeries.exclude = ["AQ", "GL"];
             polygonSeries.heatRules.push({
                 property: "fill",
                 target: polygonSeries.mapPolygons.template,
