@@ -14,37 +14,25 @@ import {
 import FadeIn from 'react-fade-in';
 
 import { loadingText, skills, educationLevel, pastPositions, yearsCode } from './vars';
-import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
 
 const axios = require('axios');
-
-const data = [{
-  "id": "US",
-  "name": "United States",
-  "value": 100
-}, {
-  "id": "FR",
-  "name": "France",
-  "value": 50
-}, {
-  "id": "CA",
-  "name": "Canada",
-  "value": 70
-}, {
-  "id": "CN",
-  "name": "China",
-  "value": 80
-}, {
-  "id": "MX",
-  "name": "Mexico",
-  "value": 90
-}];
 
 const theme = createMuiTheme({
   palette: {
     type: "dark",
   },
   overrides: {
+    MuiSlider: {
+      thumb:{
+        color: "#FE6B8B",
+      },
+      track: {
+        color: '#ff8e53'
+      },
+      rail: {
+        color: '#ff8e53'
+      }
+    },
     MuiFormLabel: {
       root: {
         "&$focused": {
@@ -104,28 +92,35 @@ export default class App extends React.Component<any, AppState>{
   }
 
   checkForm = () => {
-    this.setState({
-      fadeOut: true
-    })
-    
-    axios.post("https://salarysight.herokuapp.com/:5000", {
-      YearsCode: this.state.yearsInCode,
-      EdLevel: this.state.educationLevel,
-      Skills: this.state.skills,
-      Experiences: this.state.experiences
-    })
-    .then((res:any) => {console.log(res.data)
-      setTimeout(() => this.setState({
-        step: this.state.step + 10,
-        responseData: res.data
-      }), 800)})
-    .then(console.log("LMAOOOOOOOOO"))
+    if(!this.state.skills.length 
+    || !this.state.experiences.length 
+    || this.state.yearsInCode < 0
+    || !this.state.educationLevel.length){
+      alert("Form fields musn't be empty :(")
+    }
+    else {
+      this.setState({
+        fadeOut: true
+      })
+      axios.post("http://localhost:5000", {
+        YearsCode: this.state.yearsInCode,
+        EdLevel: this.state.educationLevel,
+        Skills: this.state.skills,
+        Experiences: this.state.experiences
+      })
+      .then(this.setState({
+        step: this.state.step + 1
+      }))
+      .then((res:any) => {
+        setTimeout(() => this.setState({
+          step: this.state.step + 11,
+          responseData: res.data.data
+        }), 800)})
+      .catch((err:any) => {console.log(err)})
+    }
   }
 
-
-
   render(){
-    console.log(this.state.skills);
     const { step, loadingText, loadingTextIndex } = this.state;
     switch(step){
       case 0:
@@ -180,7 +175,7 @@ export default class App extends React.Component<any, AppState>{
       default:
         return (
           <ThemeProvider theme={theme}>
-            <Map reset={this.resetState} data={data}/>
+            <Map reset={this.resetState} data={this.state.responseData}/>
           </ThemeProvider>);
     }
   }
