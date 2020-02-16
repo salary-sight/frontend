@@ -14,6 +14,9 @@ import {
 import FadeIn from 'react-fade-in';
 
 import { loadingText, skills, educationLevel, pastPositions, yearsCode } from './vars';
+import { any } from '@amcharts/amcharts4/.internal/core/utils/Array';
+
+const axios = require('axios');
 
 const data = [{
   "id": "US",
@@ -69,6 +72,7 @@ const initialState:AppState= {
   loadingTextIndex: 0,
   educationLevel: "",
   yearsInCode: -1,
+  responseData: []
 }
 
 type AppState = {
@@ -79,7 +83,8 @@ type AppState = {
   loadingText: string[],
   loadingTextIndex: number,
   educationLevel: string,
-  yearsInCode: number
+  yearsInCode: number,
+  responseData: any[]
 }
 
 export default class App extends React.Component<any, AppState>{
@@ -102,10 +107,22 @@ export default class App extends React.Component<any, AppState>{
     this.setState({
       fadeOut: true
     })
-    setTimeout(() => this.setState({
-      step: this.state.step + 10
-    }), 800)
+    
+    axios.post("https://salarysight.herokuapp.com/:5000", {
+      YearsCode: this.state.yearsInCode,
+      EdLevel: this.state.educationLevel,
+      Skills: this.state.skills,
+      Experiences: this.state.experiences
+    })
+    .then((res:any) => {console.log(res.data)
+      setTimeout(() => this.setState({
+        step: this.state.step + 10,
+        responseData: res.data
+      }), 800)})
+    .then(console.log("LMAOOOOOOOOO"))
   }
+
+
 
   render(){
     console.log(this.state.skills);
@@ -163,9 +180,7 @@ export default class App extends React.Component<any, AppState>{
       default:
         return (
           <ThemeProvider theme={theme}>
-            
             <Map reset={this.resetState} data={data}/>
-            
           </ThemeProvider>);
     }
   }
